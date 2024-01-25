@@ -40,3 +40,10 @@ async def get_model(model_name: ModelName):
         return {"model_name": model_name, "message": "LeCNN all the images"}
 
     return {"model_name": model_name, "message": "Have some residuals"}
+
+@app.get("/blog")
+def blog(limit: int = 10, published: bool = True, sort: str = None):
+    if published:
+        return {"data": f"{limit} published blogs from the db"}
+    else:
+        return {"data": f"{limit} blogs from the db"}
