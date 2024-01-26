@@ -12,3 +12,5 @@
 ## 3. Query Parameters
 
 `def blog(limit: int = 10, published: bool = True, sort: str = None):`
+
+## 4.
