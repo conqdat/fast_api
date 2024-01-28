@@ -28,6 +28,15 @@ def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blog).all()
     return blogs
 
+@app.delete("/blog/{id}", status_code=204)
+def destroy(id, db: Session = Depends(get_db)):
+    blog = db.query(models.Blog).filter(models.Blog.id == id)
+    if not blog.first():
+        raise HTTPException(status_code=404, detail=f"Blog with id {id} not found")
+    blog.delete(synchronize_session=False)
+    db.commit()
+    return "done"
+
 @app.get("/blog/{id}", status_code=200)
 def show(id, response: Response ,db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
